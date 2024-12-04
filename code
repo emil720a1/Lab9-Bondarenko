@@ -1,0 +1,49 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Student {
+    string name;
+    double grade;
+};
+
+struct Course {
+    string name;
+    vector<Student> students;
+
+    double calculateAverage() {
+        double sum = 0.0;
+        for (const Student& student : students) {
+            sum += student.grade;
+        }
+        return sum / students.size();
+    }
+
+    void printStudentsAboveThreshold(double threshold) {
+        cout << "Студенти з оцінками вище " << threshold << ":" << endl;
+        for (const Student& student : students) {
+            if (student.grade > threshold) {
+                cout << student.name << ": " << student.grade << endl;
+            }
+        }
+    }
+};
+
+int main() {
+    Course course = {
+        "Математика",
+        {
+                {"Іван", 80},
+                {"Марія", 95},
+                {"Петро", 72},
+                {"Анна", 88},
+                {"Олексій", 92}
+        }
+    };
+
+    course.printStudentsAboveThreshold(85);
+
+    return 0;
+}
